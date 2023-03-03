@@ -1,0 +1,13 @@
+.elements {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
+    grid-auto-rows: 1fr;
+    gap: 17px;
+}
+
+@media (max-width: 400px) {
+    .add-button {
+        gap: 20px;
+    }
+}
