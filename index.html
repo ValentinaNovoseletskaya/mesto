@@ -4,85 +4,87 @@
     <meta charset="UTF-8">
     <title>Mesto</title>
     <meta name="viewport" content="width=device-width">
-    <link href="pages/index.css" rel="stylesheet">
+    <link href="../pages/index.css" rel="stylesheet">
 </head>
 <body class="body">
     <div class="page">
         <header class="header">
-            <img class="header__logo" src="images/logo.svg" alt="Логотип">
+            <img class="header__logo" src="../images/logo.svg" alt="Логотип">
         </header>
         <main class="main">
             <section class="profile">
-                <div class="profile-info">
-                    <img src="images/Kusto.jpg" alt="Жак-Ив Кусто" class="avatar">
-                    <div class="info">
-                        <h1 class="info__name">Жак-Ив Кусто</h1>
-                        <button type="button" class="edit-button"></button>
-                        <h2 class="info__job">Исследователь океана</h2>                        
+                <div class="profile__structure">
+                    <img src="../images/Kusto.jpg" alt="Жак-Ив Кусто" class="profile__avatar">
+                    <div class="profile__info">
+                        <h1 class="profile__name">Жак-Ив Кусто</h1>
+                        <button type="button" class="profile__edit-button"></button>
+                        <p class="profile__job">Исследователь океана</p>                        
                     </div>                    
                 </div>
-                <button type="button" class="add-button"></button>
+                <button type="button" class="profile__add-button"></button>
             </section>
             <section class="elements">
-                <div class="element">
-                    <img src="images/Altay.jpg" alt="Алтай" class="element__picture">
+                <article class="element">
+                    <img src="../images/Altay.jpg" alt="Алтай" class="element__picture">
                     <div class="element__container">
                         <h2 class="element__text">Алтай</h2>
-                        <img src="images/heart.svg" alt="Сердце" class="like">
+                        <button type="button" class="element__like-button"></button>
                     </div>                
-                </div>
-                <div class="element">
-                    <img src="images/Kurily.jpg" alt="Курильские острова" class="element__picture">
+                </article>
+                <article class="element">
+                    <img src="../images/Kurily.jpg" alt="Курильские острова" class="element__picture">
                     <div class="element__container">
                         <h2 class="element__text">Курильские острова</h2>
-                        <img src="images/heart.svg" alt="Сердце" class="like">
+                        <button type="button" class="element__like-button"></button>
                     </div> 
-                </div>
-                <div class="element">
-                    <img src="images/Polyana.jpg" alt="Красная поляна" class="element__picture">
+                </article>
+                <article class="element">
+                    <img src="../images/Polyana.jpg" alt="Красная поляна" class="element__picture">
                     <div class="element__container">
                         <h2 class="element__text">Красная поляна</h2>
-                        <img src="images/heart.svg" alt="Сердце" class="like">
+                        <button type="button" class="element__like-button"></button>
                     </div> 
-                </div>
-                <div class="element">
-                    <img src="images/Elbrus.jpg" alt="Гора Эльбрус" class="element__picture">
+                </article>
+                <article class="element">
+                    <img src="../images/Elbrus.jpg" alt="Гора Эльбрус" class="element__picture">
                     <div class="element__container">
                         <h2 class="element__text">Гора Эльбрус</h2>
-                        <img src="images/heart.svg" alt="Сердце" class="like">
+                        <button type="button" class="element__like-button"></button>
                     </div> 
-                </div>
-                <div class="element">
-                    <img src="images/Dombay.jpg" alt="Домбай" class="element__picture">
+                </article>
+                <article class="element">
+                    <img src="../images/Dombay.jpg" alt="Домбай" class="element__picture">
                     <div class="element__container">
                         <h2 class="element__text">Домбай</h2>
-                        <img src="images/heart.svg" alt="Сердце" class="like">
+                        <button type="button" class="element__like-button"></button>
                     </div> 
-                </div>
-                <div class="element">
-                    <img src="images/Karachaevsk.jpg" alt="Карачаево-Черкессия" class="element__picture">
+                </article>
+                <article class="element">
+                    <img src="../images/Karachaevsk.jpg" alt="Карачаево-Черкессия" class="element__picture">
                     <div class="element__container">
                         <h2 class="element__text">Карачаево-Черкесск</h2>
-                        <img src="images/heart.svg" alt="Сердце" class="like">
+                        <button type="button" class="element__like-button"></button>
                     </div> 
-                </div>
+                </article>
             </section>
         </main>
         <footer class="footer">
-            <p class="footer__copyright">&#169;2020 Mesto Russia</p>
+            <p class="footer__copyright">&#169; 2020 Mesto Russia</p>
         </footer>
     </div>
-    <section class="popup">
-        <div class="popup__container">            
-            <form class="popup__content">
-                <button type="button" class="popup__close-button"></button>
-                <h2 class="popup__title">Редактировать профиль</h2>
-                <input type='text' class="popup__name">
-                <input type='text' class="popup__job">
+    <div class="popup">
+        <div class="popup__container">
+            <button type="button" class="popup__close-button"></button>
+            <h2 class="popup__title">Редактировать профиль</h2>
+            <form class="popup__content" name="form">
+                <div>
+                    <input type="text" name="profileName" class="popup__input popup__input_type_name" placeholder="Жак-Ив Кусто">
+                    <input type="text" name="profileJob" class="popup__input popup__input_type_job" placeholder="Исследователь океана">
+                </div>
                 <button type="submit" class="popup__save-button">Сохранить</button>
             </form>
         </div>
-    </section>
-    <script src="scripts/index.js"></script> 
+    </div>
+    <script src="../scripts/index.js"></script>
 </body>
 </html>

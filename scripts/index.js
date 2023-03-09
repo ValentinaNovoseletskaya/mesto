@@ -1,10 +1,10 @@
 let popupElement = document.querySelector(".popup");
-let popupButtonOpen = document.querySelector(".edit-button");
+let popupButtonOpen = document.querySelector(".profile__edit-button");
 let popupButtonClose = popupElement.querySelector(".popup__close-button");
-let nameProfile = document.querySelector(".info__name");
-let jobProfile = document.querySelector(".info__job");
-let nameInput = popupElement.querySelector(".popup__name");
-let jobInput = popupElement.querySelector(".popup__job");
+let nameProfile = document.querySelector(".profile__name");
+let jobProfile = document.querySelector(".profile__job");
+let nameInput = popupElement.querySelector("[name='profileName']");
+let jobInput = popupElement.querySelector("[name='profileJob']");
 let popupButtonSave = popupElement.querySelector(".popup__save-button");
 let popupForm = popupElement.querySelector(".popup__content");
 

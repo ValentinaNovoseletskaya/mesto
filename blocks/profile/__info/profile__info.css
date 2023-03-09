@@ -1,0 +1,15 @@
+.profile__info {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: fit-content(400px) 1fr;
+    grid-column-gap: 20px;
+    padding-left: 30px;
+}
+
+@media (max-width: 600px) {
+    .profile__info {
+        padding-left: 30px;
+        grid-column-gap: 10px;
+    }
+}

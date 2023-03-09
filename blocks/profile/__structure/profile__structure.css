@@ -1,14 +1,14 @@
-.profile-info {
+.profile__structure {
     display: flex;
     position: relative;
     justify-content: space-between;
     align-items: center;
 }
 
-@media (max-width: 600px) {
-    .profile-info {
+@media (max-width: 700px) {
+    .profile__structure {
         flex-direction: column;
         min-width: 282px;
-        padding-bottom: 36px;
+        padding-bottom: 35px;
     }
 }
