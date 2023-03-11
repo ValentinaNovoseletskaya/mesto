@@ -23,7 +23,7 @@
                 </div>
                 <button type="button" class="profile__add-button"></button>
             </section>
-            <section class="elements">
+            <section class="elements" aria-label="Карточки мест">
                 <article class="element">
                     <img src="./images/Altay.jpg" alt="Алтай" class="element__picture">
                     <div class="element__container">
@@ -77,10 +77,8 @@
             <button type="button" class="popup__close-button"></button>
             <h2 class="popup__title">Редактировать профиль</h2>
             <form class="popup__content" name="form">
-                <div>
-                    <input type="text" name="profileName" class="popup__input popup__input_type_name" placeholder="Жак-Ив Кусто">
-                    <input type="text" name="profileJob" class="popup__input popup__input_type_job" placeholder="Исследователь океана">
-                </div>
+                    <input type="text" name="profileName" class="popup__input popup__input_type_name" placeholder="Имя">
+                    <input type="text" name="profileJob" class="popup__input popup__input_type_job" placeholder="Профессия">
                 <button type="submit" class="popup__save-button">Сохранить</button>
             </form>
         </div>
