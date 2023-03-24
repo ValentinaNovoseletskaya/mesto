@@ -1,94 +1,79 @@
-let popupCloseButtons = document.querySelectorAll(".popup__close-button");
-let closePopup = function(event) {
-    event.target.closest(".popup").classList.remove("popup_opened")
+const closePopup = function(className) {
+  document.querySelector(className).classList.remove("popup_opened")
+} 
+const openPopup = function(className){
+  document.querySelector(className).classList.add("popup_opened");
 }
-popupCloseButtons.forEach(function (i) {
-    i.addEventListener("click", closePopup);
-});
 
-let nameProfile = document.querySelector(".profile__name");
-let jobProfile = document.querySelector(".profile__job");
+const nameProfile = document.querySelector(".profile__name");
+const jobProfile = document.querySelector(".profile__job");
+const popupProfileButtonOpen = document.querySelector(".profile__edit-button");
+const popupProfileElement = document.querySelector(".popup_type_profile");
+const popupProfileCloseButton = document.querySelector(".popup_type_profile .popup__close-button");
+const nameInput = popupProfileElement.querySelector("[name='profileName']");
+const jobInput = popupProfileElement.querySelector("[name='profileJob']");
+const popupProfileButtonSave = popupProfileElement.querySelector(".popup__save-button");
+const popupProfileForm = popupProfileElement.querySelector(".popup__content");
 
-let popupProfileButtonOpen = document.querySelector(".profile__edit-button");
-let popupProfileElement = document.querySelector(".popup_type_profile");
-let nameInput = popupProfileElement.querySelector("[name='profileName']");
-let jobInput = popupProfileElement.querySelector("[name='profileJob']");
-let popupProfileButtonSave = popupProfileElement.querySelector(".popup__save-button");
-let popupProfileForm = popupProfileElement.querySelector(".popup__content");
-
-function handleProfileFormSubmit (event) {
+const handleProfileFormSubmit = function(event) {
     event.preventDefault();
-    let nameValue = nameInput.value;
+    const nameValue = nameInput.value;
     nameProfile.textContent = nameValue;
-    let jobValue = jobInput.value;
+    const jobValue = jobInput.value;
     jobProfile.textContent = jobValue;
-    closePopup(event);
+    closePopup('.popup_type_profile');
+}
+
+const handleCloseProfilePopup = function(){
+  closePopup('.popup_type_profile');
 }
 
 popupProfileForm.addEventListener('submit', handleProfileFormSubmit);
+popupProfileCloseButton.addEventListener('click', handleCloseProfilePopup);
 
-let openProfilePopup = function() {
+const openProfilePopup = function() {
     nameInput.value = nameProfile.textContent;
     jobInput.value = jobProfile.textContent;
-    popupProfileElement.classList.add("popup_opened")
+    openPopup('.popup_type_profile');
 }
 
 popupProfileButtonOpen.addEventListener("click", openProfilePopup);
 
-let popupPlaceButtonOpen = document.querySelector(".profile__add-button");
-let popupPlaceElement = document.querySelector(".popup_type_place");
-let placeInput = popupPlaceElement.querySelector("[name='placeName']");
-let imageInput = popupPlaceElement.querySelector("[name='placeImage']");
-let popupPlaceButtonSave = popupPlaceElement.querySelector(".popup__save-button");
-let popupPlaceForm = popupPlaceElement.querySelector(".popup__content");
+const popupPlaceButtonOpen = document.querySelector(".profile__add-button");
+const popupPlaceElement = document.querySelector(".popup_type_place");
+const popupPlaceCloseButton = document.querySelector(".popup_type_place .popup__close-button");
+const placeInput = popupPlaceElement.querySelector("[name='placeName']");
+const imageInput = popupPlaceElement.querySelector("[name='placeImage']");
+const popupPlaceButtonSave = popupPlaceElement.querySelector(".popup__save-button");
+const popupPlaceForm = popupPlaceElement.querySelector(".popup__content");
 
-function handlePlaceFormSubmit (event) {
+const handlePlaceFormSubmit = function(event) {
     event.preventDefault();
-    let placeValue = placeInput.value;
-    let imageValue = imageInput.value;
-    let card = [];
+    const placeValue = placeInput.value;
+    const imageValue = imageInput.value;
+    const card = {};
     card.name = placeValue;
     card.link = imageValue;
     renderCard(card);
-    closePopup(event);
+    placeInput.value = '';
+    imageInput.value = '';
+    closePopup('.popup_type_place');
+}
+
+const handleClosePlacePopup = function(){
+  closePopup('.popup_type_place');
 }
 
 popupPlaceForm.addEventListener('submit', handlePlaceFormSubmit);
+popupPlaceCloseButton.addEventListener("click", handleClosePlacePopup);
 
-let openPlacePopup = function() {
-    popupPlaceElement.classList.add("popup_opened")
+const openPlacePopup = function() {
+      openPopup('.popup_type_place');
 }
 
 popupPlaceButtonOpen.addEventListener("click", openPlacePopup);
 
-const initialCards = [
-    {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-  ];
-
-let likeArticle = function(event) {
+const likeArticle = function(event) {
         
     if (event.target.classList.contains("element__like-button_active")) {
         event.target.classList.remove("element__like-button_active")  
@@ -97,30 +82,40 @@ let likeArticle = function(event) {
     event.target.classList.add("element__like-button_active")
 }
 
-function deleteArticle (event) {
+const deleteArticle = function(event) {
     const card = event.target.closest(".element");
     card.remove();
 }
 
-const cardTemplate = document.querySelector(".article-template").content;
+const cardTemplate = document.querySelector(".article-template").content.querySelector('.element');
 const cardList = document.querySelector(".elements");
+const popupImage = document.querySelector(".popup_type_image");
+const popupImageCloseButton = document.querySelector(".popup_type_image .popup__close-button");
+const popupImageElement = document.querySelector(".popup__image-element");
+const popupImageTitle = document.querySelector(".popup__image-title");
 
-let popupImageElement = document.querySelector(".popup_type_image");
-let openImagePopup = function(event) {
- 
-    popupImageElement.classList.add("popup_opened");
-    popupImageElement.querySelector(".popup__image-element").src = event.target.src;
-    popupImageElement.querySelector(".popup__image-title").textContent = event.target.alt;
+const openImagePopup = function(event) { 
+    popupImageElement.src = event.target.src;
+    popupImageElement.alt = event.target.alt;
+    popupImageTitle.textContent = event.target.alt;
+    openPopup('.popup_type_image');
 }
+
+const handleCloseImagePopup = function(){
+  closePopup('.popup_type_image');
+}
+
+popupImageCloseButton.addEventListener("click", handleCloseImagePopup);
 
 function renderCard(card) {
     const htmlElement = cardTemplate.cloneNode(true);
+    const pictureElement = htmlElement.querySelector(".element__picture");
     htmlElement.querySelector(".element__text").textContent = card.name;
-    htmlElement.querySelector(".element__picture").src = card.link;
-    htmlElement.querySelector(".element__picture").alt = card.name;
+    pictureElement.src = card.link;
+    pictureElement.alt = card.name;
     htmlElement.querySelector(".element__like-button").addEventListener("click", likeArticle);
     htmlElement.querySelector(".element__delete-button").addEventListener("click", deleteArticle);
-    htmlElement.querySelector(".element__picture").addEventListener("click", openImagePopup);
+    pictureElement.addEventListener("click", openImagePopup);
     cardList.prepend(htmlElement);
 }
 

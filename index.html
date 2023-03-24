@@ -35,8 +35,8 @@
             <button type="button" class="popup__close-button"></button>
             <h2 class="popup__title">Редактировать профиль</h2>
             <form class="popup__content" name="form">
-                    <input type="text" name="profileName" class="popup__input popup__input_type_name" placeholder="Имя">
-                    <input type="text" name="profileJob" class="popup__input popup__input_type_job" placeholder="Профессия">
+                    <input type="text" name="profileName" class="popup__input popup__input_type_name" placeholder="Имя" required >
+                    <input type="text" name="profileJob" class="popup__input popup__input_type_job" placeholder="Профессия" required >
                 <button type="submit" class="popup__save-button">Сохранить</button>
             </form>
         </div>
@@ -46,8 +46,8 @@
             <button type="button" class="popup__close-button"></button>
             <h2 class="popup__title">Новое место</h2>
             <form class="popup__content" name="form">
-                    <input type="text" name="placeName" class="popup__input popup__input_type_name" placeholder="Название">
-                    <input type="text" name="placeImage" class="popup__input popup__input_type_link" placeholder="Ссылка на картинку">
+                    <input type="text" name="placeName" class="popup__input popup__input_type_name" placeholder="Название" required >
+                    <input type="text" name="placeImage" class="popup__input popup__input_type_link" placeholder="Ссылка на картинку" required >
                 <button type="submit" class="popup__save-button">Сохранить</button>
             </form>
         </div>
@@ -61,14 +61,15 @@
     </div>
     <template class="article-template">
         <article class="element">
-            <img src="#" alt="фотография места" class="element__picture">
+            <img src="#" alt="фотография места" class="element__picture" >
             <button type="button" class="element__delete-button"></button>
             <div class="element__container">
-                <h2 class="element__text"></h2>
+                <h2 class="element__text" ></h2>
                 <button type="button" class="element__like-button"></button>
             </div>             
         </article>
     </template>    
+    <script src="./scripts/places_data.js"></script>
     <script src="./scripts/index.js"></script>
 </body>
 </html>
