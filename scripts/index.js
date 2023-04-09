@@ -15,6 +15,22 @@ const nameInput = popupProfile.querySelector("[name='profileName']");
 const jobInput = popupProfile.querySelector("[name='profileJob']");
 const popupProfileButtonSave = popupProfile.querySelector(".popup__save-button");
 const popupProfileForm = popupProfile.querySelector(".popup__content");
+const popups = document.querySelectorAll(".popup");
+
+const closePopupOverlay = (event) => {
+  if (event.target !== event.currentTarget) {
+    return;
+  };
+    closePopup(event.currentTarget);
+};
+
+popups.forEach(e => {e.addEventListener('click', closePopupOverlay)});
+ 
+document.addEventListener('keydown', function(event) { 
+  if (event.key == "Escape" && document.querySelector(".popup_opened")) {
+    document.querySelector(".popup_opened").classList.remove("popup_opened");
+  }
+});
 
 const handleProfileFormSubmit = function(event) {
   event.preventDefault();
@@ -118,4 +134,5 @@ const createCard = function(name, link){
 initialCards.forEach(function(element) {
   cardList.prepend(createCard(element.name, element.link));
 });
+
 
