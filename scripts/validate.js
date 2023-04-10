@@ -13,9 +13,6 @@ const form = document.querySelector('.popup__content');
 const enableValidation = ({formSelector, ...rest}) => {
   const forms = Array.from(document.querySelectorAll(formSelector));
   forms.forEach(form => {
-    form.addEventListener('submit', (event) => {
-      event.preventDefault();
-    });
     addEventListeners(form, rest);
   });
 };
@@ -24,6 +21,10 @@ const addEventListeners = (form, {inputSelector, submitButtonSelector, inputErro
   const formInputs = Array.from(form.querySelectorAll(inputSelector));
   const saveButton = form.querySelector(submitButtonSelector);
   disableButton(saveButton, rest);
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    disableButton(saveButton, rest);
+  });
   formInputs.forEach(input => {
     input.addEventListener('input', () => {
       validateInput(input, inputErrorClass, errorClass);

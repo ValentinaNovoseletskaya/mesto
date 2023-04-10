@@ -1,8 +1,10 @@
 const closePopup = function(elementName) {
   elementName.classList.remove("popup_opened");
+  document.removeEventListener('keydown', closeByEscape);
 } 
 const openPopup = function(elementName) {
   elementName.classList.add("popup_opened");
+  document.addEventListener('keydown', closeByEscape);
 }
 
 const cardList = document.querySelector(".elements");
@@ -16,6 +18,12 @@ const jobInput = popupProfile.querySelector("[name='profileJob']");
 const popupProfileButtonSave = popupProfile.querySelector(".popup__save-button");
 const popupProfileForm = popupProfile.querySelector(".popup__content");
 const popups = document.querySelectorAll(".popup");
+const сloseButtons = document.querySelectorAll(".popup__close-button");
+
+сloseButtons.forEach((button) => {
+  const popup = button.closest('.popup');
+  button.addEventListener('click', () => closePopup(popup));
+});
 
 const closePopupOverlay = (event) => {
   if (event.target !== event.currentTarget) {
@@ -25,12 +33,13 @@ const closePopupOverlay = (event) => {
 };
 
 popups.forEach(e => {e.addEventListener('click', closePopupOverlay)});
- 
-document.addEventListener('keydown', function(event) { 
-  if (event.key == "Escape" && document.querySelector(".popup_opened")) {
-    document.querySelector(".popup_opened").classList.remove("popup_opened");
+
+function closeByEscape(evt) {
+  if (evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened');
+    closePopup(openedPopup);
   }
-});
+}
 
 const handleProfileFormSubmit = function(event) {
   event.preventDefault();
@@ -46,7 +55,6 @@ const handleCloseProfilePopup = function() {
 }
 
 popupProfileForm.addEventListener('submit', handleProfileFormSubmit);
-popupProfileCloseButton.addEventListener('click', handleCloseProfilePopup);
 
 const openProfilePopup = function() {
   nameInput.value = nameProfile.textContent;
@@ -69,9 +77,8 @@ const handlePlaceFormSubmit = function(event) {
   const placeValue = placeInput.value;
   const imageValue = imageInput.value;
   cardList.prepend(createCard(placeValue, imageValue));
-  placeInput.value = '';
-  imageInput.value = '';
   closePopup(popupPlace);
+  event.target.reset();
 }
 
 const handleClosePlacePopup = function() {
@@ -79,7 +86,6 @@ const handleClosePlacePopup = function() {
 }
 
 popupPlaceForm.addEventListener('submit', handlePlaceFormSubmit);
-popupPlaceCloseButton.addEventListener("click", handleClosePlacePopup);
 
 const openPlacePopup = function() {
   openPopup(popupPlace);
@@ -116,8 +122,6 @@ const openImagePopup = function(event) {
 const handleCloseImagePopup = function() {
   closePopup(popupImage);
 }
-
-popupImageCloseButton.addEventListener("click", handleCloseImagePopup);
 
 const createCard = function(name, link){
   const cardElement = cardTemplate.cloneNode(true);
