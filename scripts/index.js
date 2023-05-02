@@ -36,6 +36,11 @@ const handleProfileFormSubmit = function(event) {
   closePopup(popupProfile);
 };
 
+const createCardElement = function(data) {
+  const card = new Card( data, '.article-template');
+  return card.generateCard();
+}
+
 popupProfileForm.addEventListener('submit', handleProfileFormSubmit);
 
 const openProfilePopup = function() {
@@ -58,9 +63,7 @@ const handlePlaceFormSubmit = function(event) {
     name: placeInput.value,
     link: imageInput.value
   };
-  const card = new Card( data, '.article-template');
-  const cardElement = card.generateCard();
-  cardList.prepend(cardElement);
+  cardList.prepend(createCardElement(data));
   closePopup(popupPlace);
   event.target.reset();
 };
@@ -73,10 +76,8 @@ const openPlacePopup = function() {
 
 popupPlaceAddButtonOpen.addEventListener("click", openPlacePopup);
 
-initialCards.forEach(function(element) {
-  const card = new Card(element, '.article-template');
-  const cardElement = card.generateCard();
-  cardList.prepend(cardElement);
+initialCards.forEach(function(data) {
+  cardList.prepend(createCardElement(data));
 });
 
 const validationSettings = {
