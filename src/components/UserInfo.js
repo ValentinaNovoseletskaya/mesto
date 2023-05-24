@@ -1,5 +1,5 @@
 export default class UserInfo {
-    constructor(userName = '', userDescription = '') {
+    constructor(userName = 'Жак-Ив Кусто', userDescription = 'Исследователь океана') {
         this._userName = userName;
         this._userDescription = userDescription;
     }

@@ -1,10 +1,11 @@
-import Section from './Section.js'
-import Card from './Card.js'
-import { FormValidator } from './FormValidator.js'
-import { initialCards } from './utils.js'
-import PopupWithImage from './PopupWithImage.js'
-import PopupWithForm from './PopupWithForm.js'
-import UserInfo from './UserInfo.js'
+import Section from '../components/Section.js'
+import Card from '../components/Card.js'
+import { FormValidator } from '../components/FormValidator.js'
+import { initialCards } from '../utils.js'
+import PopupWithImage from '../components/PopupWithImage.js'
+import PopupWithForm from '../components/PopupWithForm.js'
+import UserInfo from '../components/UserInfo.js'
+import '../pages/index.css';
 
 const handleCardClick = function(data){
   const popupImage = new PopupWithImage(data, ".popup_type_image");
@@ -33,11 +34,18 @@ const handleProfileFormSubmit = function(data) {
 };
 
 const popupWithUser = new PopupWithForm(".popup_type_profile", handleProfileFormSubmit);
+const popupProfile = document.querySelector(".popup_type_profile");
+const nameInput = popupProfile.querySelector("[name='profileName']");
+const jobInput = popupProfile.querySelector("[name='profileJob']");
 const popupProfileButtonOpen = document.querySelector(".profile__edit-button");
 
 popupWithUser.setEventListeners();
 popupProfileButtonOpen.addEventListener("click", () => {
+  const currentUser = userInfo.getUserInfo();
+  nameInput.value = currentUser.name;
+  jobInput.value = currentUser.description;
   popupWithUser.open();
+  
 });
 
 const handlePlaceFormSubmit = function(data) {
