@@ -1,83 +1,58 @@
-import { Card } from './Card.js'
+import Section from './Section.js'
+import Card from './Card.js'
 import { FormValidator } from './FormValidator.js'
-import { initialCards, closePopup, openPopup } from './utils.js'
+import { initialCards } from './utils.js'
+import PopupWithImage from './PopupWithImage.js'
+import PopupWithForm from './PopupWithForm.js'
+import UserInfo from './UserInfo.js'
 
-const cardList = document.querySelector(".elements");
-const nameProfile = document.querySelector(".profile__name");
-const jobProfile = document.querySelector(".profile__job");
-const popupProfileButtonOpen = document.querySelector(".profile__edit-button");
-const popupProfile = document.querySelector(".popup_type_profile");
-const nameInput = popupProfile.querySelector("[name='profileName']");
-const jobInput = popupProfile.querySelector("[name='profileJob']");
-const popupProfileForm = popupProfile.querySelector(".popup__content");
-const popups = document.querySelectorAll(".popup");
-const сloseButtons = document.querySelectorAll(".popup__close-button");
-
-сloseButtons.forEach((button) => {
-  const popup = button.closest('.popup');
-  button.addEventListener('click', () => closePopup(popup));
-});
-
-const closePopupOverlay = (event) => {
-  if (event.target !== event.currentTarget) {
-    return;
-  };
-    closePopup(event.currentTarget);
-};
-
-popups.forEach(e => {e.addEventListener('click', closePopupOverlay)});
-
-const handleProfileFormSubmit = function(event) {
-  event.preventDefault();
-  const nameValue = nameInput.value;
-  nameProfile.textContent = nameValue;
-  const jobValue = jobInput.value;
-  jobProfile.textContent = jobValue;
-  closePopup(popupProfile);
-};
-
+const handleCardClick = function(data){
+  const popupImage = new PopupWithImage(data, ".popup_type_image");
+  popupImage.open();
+  popupImage.setEventListeners();
+}
 const createCardElement = function(data) {
-  const card = new Card( data, '.article-template');
+  const card = new Card( data, '.article-template', handleCardClick);
   return card.generateCard();
 }
 
-popupProfileForm.addEventListener('submit', handleProfileFormSubmit);
+const cardList = new Section({
+  items: initialCards,
+  renderer: (item) => {
+    cardList.addItem(createCardElement(item));
+  }
+} , ".elements");
 
-const openProfilePopup = function() {
-  nameInput.value = nameProfile.textContent;
-  jobInput.value = jobProfile.textContent;
-  openPopup(popupProfile);
+cardList.renderItems();
+const userInfo = new UserInfo();
+
+const handleProfileFormSubmit = function(data) {
+  const nameValue = data['profileName'];
+  const jobValue = data['profileJob'];
+  userInfo.setUserInfo(nameValue, jobValue)
 };
 
-popupProfileButtonOpen.addEventListener("click", openProfilePopup);
+const popupWithUser = new PopupWithForm(".popup_type_profile", handleProfileFormSubmit);
+const popupProfileButtonOpen = document.querySelector(".profile__edit-button");
 
-const popupPlaceAddButtonOpen = document.querySelector(".profile__add-button");
-const popupPlace = document.querySelector(".popup_type_place");
-const placeInput = popupPlace.querySelector("[name='placeName']");
-const imageInput = popupPlace.querySelector("[name='placeImage']");
-const popupPlaceForm = popupPlace.querySelector(".popup__content");
+popupWithUser.setEventListeners();
+popupProfileButtonOpen.addEventListener("click", () => {
+  popupWithUser.open();
+});
 
-const handlePlaceFormSubmit = function(event) {
-  event.preventDefault();
-  const data = {
-    name: placeInput.value,
-    link: imageInput.value
+const handlePlaceFormSubmit = function(data) {
+  const dataCard = {
+    name: data['placeName'],
+    link: data['placeImage']
   };
-  cardList.prepend(createCardElement(data));
-  closePopup(popupPlace);
-  event.target.reset();
+  cardList.addItem(createCardElement(dataCard));
 };
 
-popupPlaceForm.addEventListener('submit', handlePlaceFormSubmit);
-
-const openPlacePopup = function() {
-  openPopup(popupPlace);
-};
-
-popupPlaceAddButtonOpen.addEventListener("click", openPlacePopup);
-
-initialCards.forEach(function(data) {
-  cardList.prepend(createCardElement(data));
+const popupWhithPlace  = new PopupWithForm(".popup_type_place", handlePlaceFormSubmit);
+const popupPlaceAddButtonOpen = document.querySelector(".profile__add-button");
+popupWhithPlace.setEventListeners();
+popupPlaceAddButtonOpen.addEventListener("click", () => {
+  popupWhithPlace.open();
 });
 
 const validationSettings = {
