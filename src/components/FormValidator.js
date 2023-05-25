@@ -38,10 +38,7 @@ export class FormValidator {
 
     _setEventListeners = () => {    
         this._disableButton();
-        this._formElement.addEventListener('submit', (event) => {
-            event.preventDefault();
-            this._disableButton();
-        });
+        this._formElement.addEventListener('reset', this._disableButton.bind(this));
         this._formInputs.forEach(input => {
             input.addEventListener('input', () => {
             this._validateInput(input);

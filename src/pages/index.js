@@ -1,17 +1,18 @@
 import Section from '../components/Section.js'
 import Card from '../components/Card.js'
 import { FormValidator } from '../components/FormValidator.js'
-import { initialCards } from '../utils.js'
+import { initialCards, validationSettings } from '../utils/constants.js'
 import PopupWithImage from '../components/PopupWithImage.js'
 import PopupWithForm from '../components/PopupWithForm.js'
 import UserInfo from '../components/UserInfo.js'
 import '../pages/index.css';
 
+const popupImage = new PopupWithImage(".popup_type_image");
+popupImage.setEventListeners();
 const handleCardClick = function(data){
-  const popupImage = new PopupWithImage(data, ".popup_type_image");
-  popupImage.open();
-  popupImage.setEventListeners();
+  popupImage.open(data);
 }
+
 const createCardElement = function(data) {
   const card = new Card( data, '.article-template', handleCardClick);
   return card.generateCard();
@@ -25,7 +26,8 @@ const cardList = new Section({
 } , ".elements");
 
 cardList.renderItems();
-const userInfo = new UserInfo();
+
+const userInfo = new UserInfo(".profile__name", ".profile__job");
 
 const handleProfileFormSubmit = function(data) {
   const nameValue = data['profileName'];
@@ -62,14 +64,6 @@ popupWhithPlace.setEventListeners();
 popupPlaceAddButtonOpen.addEventListener("click", () => {
   popupWhithPlace.open();
 });
-
-const validationSettings = {
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__save-button',
-  inactiveButtonClass: 'popup__save-button_disable',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-};
 
 const profileForm = document.querySelector('.popup__content-profileForm');
 const placeForm = document.querySelector('.popup__content-placeForm');
