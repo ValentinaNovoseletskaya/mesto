@@ -1,11 +1,25 @@
+// Внутри основного файла index.js
+// - Все экземпляры класса создать заранее
+// - В конце файла вызвать метод getAppInfo, который вернет вам данные по всем карточкам и данные пользователя. Внутри then этого метода вы можете, имея доступ ко всем нужным начальным данным отрисовать начальные карточки (через метод renderItems экземпляра класса Section), а также добавить данные пользователя (через метод setUserInfo экземпляра класса UserInfo)
+// - обратите внимание, что создание экземпляра класса Section не требует передачи массива начальных карточек в конструктор - их надо передавать как аргумент самого метода renderItems
+
 import Section from '../components/Section.js'
 import Card from '../components/Card.js'
 import { FormValidator } from '../components/FormValidator.js'
-import { initialCards, validationSettings } from '../utils/constants.js'
+import { validationSettings } from '../utils/constants.js'
 import PopupWithImage from '../components/PopupWithImage.js'
 import PopupWithForm from '../components/PopupWithForm.js'
 import UserInfo from '../components/UserInfo.js'
+import Api from '../components/Api.js'
 import '../pages/index.css';
+
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-66',
+  headers: {
+    authorization: 'e80de601-eadc-4261-9de7-7dde09fbf72f',
+    'Content-Type': 'application/json'
+  }
+});
 
 const popupImage = new PopupWithImage(".popup_type_image");
 popupImage.setEventListeners();
@@ -18,21 +32,43 @@ const createCardElement = function(data) {
   return card.generateCard();
 }
 
-const cardList = new Section({
-  items: initialCards,
-  renderer: (item) => {
-    cardList.addItem(createCardElement(item));
+api.getInitialCards().then((res) => {
+    const cardList = new Section({
+      items: res,
+      renderer: (item) => {
+        cardList.addItem(createCardElement(item));
+      }
+    } , ".elements");    
+    cardList.renderItems();
+  })
+  .catch((err) => {
+    console.log(err);
+  }); 
+
+const userInfo = new UserInfo(".profile__name", ".profile__job", ".profile__avatar-img");
+
+api.getUserInfo().then((res) => {
+
+  console.log(res);
+  const user = {
+    name: res.name,
+    about: res.about,
+    avatar: res.avatar,
   }
-} , ".elements");
-
-cardList.renderItems();
-
-const userInfo = new UserInfo(".profile__name", ".profile__job");
+  
+  userInfo.setUserInfo(user) 
+})
+.catch((err) => {
+  console.log(err);
+});
 
 const handleProfileFormSubmit = function(data) {
-  const nameValue = data['profileName'];
-  const jobValue = data['profileJob'];
-  userInfo.setUserInfo(nameValue, jobValue)
+  const user = {
+    name: data['profileName'],
+    about: data['profileJob']
+  }
+  userInfo.setUserInfo(user)
+  api.editUserInfo(user); 
 };
 
 const popupWithUser = new PopupWithForm(".popup_type_profile", handleProfileFormSubmit);
@@ -50,19 +86,28 @@ popupProfileButtonOpen.addEventListener("click", () => {
   
 });
 
-const handlePlaceFormSubmit = function(data) {
-  const dataCard = {
-    name: data['placeName'],
-    link: data['placeImage']
+const handleAvatarFormSubmit = function(data) {
+  const User = {
+    avatar: data.profileAvatar
   };
   cardList.addItem(createCardElement(dataCard));
 };
 
-const popupWhithPlace  = new PopupWithForm(".popup_type_place", handlePlaceFormSubmit);
+const popupWithAvatar = new PopupWithForm(".popup_type_avatar", handleAvatarFormSubmit);
+
+const handlePlaceFormSubmit = function(data) {  
+  const dataCard = {
+    name: data['placeName'],
+    link: data['placeImage']
+  };
+  api.createNewCard(dataCard);
+};
+
+const popupWithPlace  = new PopupWithForm(".popup_type_place", handlePlaceFormSubmit);
 const popupPlaceAddButtonOpen = document.querySelector(".profile__add-button");
-popupWhithPlace.setEventListeners();
+popupWithPlace.setEventListeners();
 popupPlaceAddButtonOpen.addEventListener("click", () => {
-  popupWhithPlace.open();
+  popupWithPlace.open();
 });
 
 const profileForm = document.querySelector('.popup__content-profileForm');
