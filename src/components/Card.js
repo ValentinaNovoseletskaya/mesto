@@ -41,16 +41,15 @@ export default class Card {
     }
     
   }
+
   canUserDelete(userId) {
     const isLikedByMe = this._ownerId === userId;
-
     if (isLikedByMe) { 
       this._isDeletableByMe = true;
     } else {
       
       this._isDeletableByMe = false;
-    }
-    
+    }    
   }
 
   generateCard(){
@@ -68,8 +67,7 @@ export default class Card {
     } 
     if (this._isDeletableByMe) { 
       this._deleteButton.classList.add("element_visible");
-    } 
-    
+    }    
     this._setEventListeners();
     return this._card;
   };

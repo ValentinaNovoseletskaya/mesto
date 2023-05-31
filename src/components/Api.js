@@ -11,6 +11,7 @@ export default class Api {
         return Promise.reject(`Ошибка: ${res.status}`);
       }
     }
+
     getInitialCards() {
       return fetch(`${this._url}/cards`, {
         headers: {
@@ -98,12 +99,10 @@ export default class Api {
     }
 
     getAppInfo() {
-
       return Promise.all([
         this.getUserInfo(),
         this.getInitialCards()
-    ]) 
-
+      ])
     }
 }
   
