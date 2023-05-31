@@ -37,7 +37,7 @@
             <form class="popup__content popup__content-profileForm" name="form" novalidate>
                     <input type="text" id="input-name" name="profileName" class="popup__input popup__input_type_name" placeholder="Имя" minlength="2" maxlength="40" required>
                     <span id="input-name-error"></span>
-                    <input type="text" id="input-job" name="profileJob" class="popup__input popup__input_type_job popup__input_order_last" placeholder="О себе" minlength="2" maxlength="200" required>
+                    <input type="text" id="input-job" name="profileJob" class="popup__input popup__input_type_job" placeholder="О себе" minlength="2" maxlength="200" required>
                     <span id="input-job-error"></span>
                 <button type="submit" class="popup__save-button">Сохранить</button>
             </form>
@@ -48,8 +48,8 @@
             <button type="button" class="popup__close-button"></button>
             <h2 class="popup__title">Обновить аватар</h2>
             <form class="popup__content popup__content-AvatarForm" name="form" novalidate>
-                    <input type="url" id="input-avatar" name="profileAvatar" class="popup__input popup__input_type_avatar" placeholder="Ссылка на аватар" required>
-                    <span id="input-name-error"></span>
+                    <input type="url" id="input-avatar" name="profileAvatar" class="popup__input popup__input_type_link" placeholder="Ссылка на аватар" required>
+                    <span id="input-avatar-error"></span>
                 <button type="submit" class="popup__save-button">Сохранить</button>
             </form>
         </div>
@@ -61,7 +61,7 @@
             <form class="popup__content popup__content-placeForm" name="form" novalidate>
                     <input type="text" id="input-place" name="placeName" class="popup__input popup__input_type_name" placeholder="Название" minlength="2" maxlength="30" required>
                     <span id="input-place-error"></span>
-                    <input type="url" id="input-image" name="placeImage" class="popup__input popup__input_type_link popup__input_order_last" placeholder="Ссылка на картинку" required>
+                    <input type="url" id="input-image" name="placeImage" class="popup__input popup__input_type_link" placeholder="Ссылка на картинку" required>
                     <span id="input-image-error"></span>
                 <button type="submit" class="popup__save-button">Создать</button>
             </form>

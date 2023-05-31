@@ -7,19 +7,21 @@ export default class UserInfo {
 
     getUserInfo() {
         const userData = {
+            id: this._id,
             name: this._userName,
-            description: this._userDescription,
+            about: this._userAbout,
             avatar: this._userAvatar
         }
         return userData;
     }
 
     setUserInfo(userData) {
+        this._id = userData._id ?? this._id;
         this._userName = userData.name ?? this._userName;
-        this._userDescription = userData.about ?? this._userDescription;
+        this._userAbout = userData.about ?? this._userAbout;
         this._userAvatar = userData.avatar ?? this._userAvatar;
         this._profileNameElement.textContent = this._userName;
-        this._profileJobElement.textContent = this._userDescription;        
+        this._profileJobElement.textContent = this._userAbout;        
         this._profileAvatarElement.src = this._userAvatar;
     }
 }
